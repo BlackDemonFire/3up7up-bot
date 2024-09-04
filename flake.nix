@@ -45,7 +45,7 @@
           packages.dockerImage = pkgs.dockerTools.buildLayeredImage {
             name = "3up7upbot";
             tag = "latest-${pkgs.system}";
-            contents = [ pkgs.nodejs ];
+            contents = with pkgs; [ nodejs cacerts ];
             config = {
               Cmd = [
                 "${pkgs.nodejs}/bin/node"
