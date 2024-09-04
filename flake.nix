@@ -51,7 +51,8 @@
                 "${pkgs.nodejs}/bin/node"
                 "${self'.packages.default}/dist/index.js"
               ];
-              WorkingDir = "/app";
+              WorkingDir = "${self'.packages.default}";
+              Env = [ "DATA_DIR=/data" ];
             };
           };
           devShells.default = pkgs.mkShell {
