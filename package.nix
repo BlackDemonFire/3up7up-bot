@@ -1,10 +1,18 @@
 {
   nodejs,
+  node-gyp,
   pnpm,
+  python3,
+  removeReferencesTo,
   lib,
+  srcOnly,
   stdenv,
   ...
 }:
+
+let
+  nodeSources = srcOnly nodejs;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "3up7upbot";
   inherit ((builtins.fromJSON (builtins.readFile ./package.json))) version;
@@ -12,6 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     nodejs
+    python3
+    node-gyp
     pnpm.configHook
   ];
 
@@ -20,8 +30,18 @@ stdenv.mkDerivation (finalAttrs: {
     installFlags = "--production";
     hash = "sha256-eqpdCyCjrjXguhbiNxoeAs14ZLO2EqyZBWToTAZDYrA=";
   };
+  preBuild = ''
+    for f in $(find -path '*/node_modules/better-sqlite3' -type d); do
+      (cd "$f" && (
+      npm run build-release --offline --nodedir="${nodeSources}"
+      find build -type f -exec \
+        ${lib.getExe removeReferencesTo} \
+        -t "${nodeSources}" {} \;
+      ))
+    done
+  '';
   buildPhase = ''
-    runHook preBuild
+    runHook preBuild    
     pnpm tsc
     runHook postBuild
   '';
