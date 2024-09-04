@@ -44,7 +44,7 @@
           packages.default = pkgs.callPackage ./package.nix { };
           packages.dockerImage = pkgs.dockerTools.buildLayeredImage {
             name = "3up7upbot";
-            tag = "latest-${{pkgs.system}}";
+            tag = "latest-${pkgs.system}";
             contents = [ pkgs.nodejs ];
             config = {
               Cmd = [
