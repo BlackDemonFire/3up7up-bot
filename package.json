@@ -1,0 +1,24 @@
+{
+	"name": "3up7upbot",
+	"type": "module",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"scripts": {
+		"start": "node dist/index.js",
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@types/node": "^22.5.3",
+		"typescript": "^5.5.4"
+	},
+	"dependencies": {
+		"discord.js": "^14.16.1",
+		"enmap": "^6.0.2",
+		"zod": "^3.23.8"
+	}
+}
