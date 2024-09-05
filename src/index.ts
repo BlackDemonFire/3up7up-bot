@@ -13,6 +13,7 @@ const discordClient = new Bot({
 		IntentsBitField.Flags.Guilds,
 		IntentsBitField.Flags.GuildMessages,
 		IntentsBitField.Flags.GuildMessageReactions,
+		IntentsBitField.Flags.MessageContent,
 	],
 });
 global.client = discordClient;

@@ -45,14 +45,20 @@
           packages.dockerImage = pkgs.dockerTools.buildLayeredImage {
             name = "3up7upbot";
             tag = "latest-${pkgs.system}";
-            contents = with pkgs; [ nodejs cacert ];
+            contents = with pkgs; [
+              nodejs
+              cacert
+            ];
             config = {
               Cmd = [
                 "${pkgs.nodejs}/bin/node"
                 "${self'.packages.default}/dist/index.js"
               ];
               WorkingDir = "${self'.packages.default}";
-              Env = [ "DATA_DIR=/data" "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
+              Env = [
+                "DATA_DIR=/data"
+                "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+              ];
             };
           };
           devShells.default = pkgs.mkShell {
