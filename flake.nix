@@ -52,7 +52,7 @@
                 "${self'.packages.default}/dist/index.js"
               ];
               WorkingDir = "${self'.packages.default}";
-              Env = [ "DATA_DIR=/data" ];
+              Env = [ "DATA_DIR=/data" "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
             };
           };
           devShells.default = pkgs.mkShell {
