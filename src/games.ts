@@ -1,5 +1,4 @@
 import type { Message } from "discord.js";
-import type { Bot } from "./bot.js";
 import {
 	madeMistake,
 	messagePrimes,

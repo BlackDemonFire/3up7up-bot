@@ -41,14 +41,12 @@
           # system.
 
           # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
+          packages.bettere-sqlite3 = pkgs.callPackage ./nix/pkgs/better-sqlite3.nix { };
           packages.default = pkgs.callPackage ./package.nix { };
           packages.dockerImage = pkgs.dockerTools.buildLayeredImage {
             name = "3up7upbot";
-            tag = "latest-${pkgs.system}";
-            contents = with pkgs; [
-              nodejs
-              cacert
-            ];
+            tag = "latest";
+            contents = pkgs.lib.attrValues { inherit (pkgs) cacert nodejs; };
             config = {
               Cmd = [
                 "${pkgs.nodejs}/bin/node"
@@ -62,16 +60,18 @@
             };
           };
           devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              nodePackages.pnpm
-              nixfmt-rfc-style
-              nodejs
-              python3
-              biome
-              nil
-              statix
-              deadnix
-            ];
+            buildInputs = pkgs.lib.attrValues {
+              inherit (pkgs)
+                nixfmt-rfc-style
+                nodejs
+                python3
+                biome
+                nil
+                statix
+                deadnix
+                ;
+              inherit (pkgs.nodePackages) pnpm;
+            };
           };
         };
       flake = {

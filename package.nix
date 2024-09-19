@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
     installFlags = "--production";
-    hash = "sha256-eqpdCyCjrjXguhbiNxoeAs14ZLO2EqyZBWToTAZDYrA=";
+    hash = "sha256-XaqnWs6xpqmOapEGrKzKsSo5JTK8190tOfnBsK0Gdg4=";
   };
   preBuild = ''
     for f in $(find -path '*/node_modules/better-sqlite3' -type d); do
